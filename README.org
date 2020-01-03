@@ -1,0 +1,101 @@
+* CodeWars Guides
+
+Discussions on solving some of the [[https://www.codewars.com/][CodeWars.com]] kata style challenges
+
+** Overview
+Kata are small challenges that help you practice your coding skills and encourage you to solve a challenge in many different ways.  Kata are often used in test driven development (TDD) style and this is the approach that CodeWars takes.
+
+Codewars  is an online gamified website where you can compare your solutions with other people.  There are also head to head challenges.  CodeWars is not Clojure specific, so you can choose other languages to solve the challenges.
+
+I suggest you create an account on CodeWars, although I will cover this in the broadcast.  You can also just use the code repository of solutions, at it will contain the sample tests that Codwars provides with each challenge.
+
+All code can be found at
+https://github.com/practicalli/codewars-guides
+
+** Using this repository
+
+   Each Codewars challenge is in its own project, so this repository is effectively a mono-repo.
+
+   For each challenge, change into its specific directory name and start a REPL, or open the project in your favourite Clojure editor.
+
+** Working with a project
+
+   The projects use a ~deps.edn~ file for configuration, so you require the [[https://clojure.org/guides/getting_started][Clojure CLI tools]].
+
+   Each project includes rebel readline, so you can have an excellent REPL experience using the command:
+
+   You can use leiningen or boot if you just add their respective configuration file.  The only dependency is Clojure itself.
+
+#+BEGIN_SRC shell
+  clojure -A:rebel
+#+END_SRC
+
+** Testing
+
+   The ~test~ directory is included by default, so you can use test runners built into your favourite Clojure editor
+
+   To test on the command line, there are several test runners you can add.  I suggest adding these to your ~$HOME/.clojure/deps.end~ configuration file, so versions can be updated in just one place.
+
+   Each project also has several test runners available via aliases in the ~deps.edn~ file.
+
+*** [[https://github.com/cognitect-labs/test-runner][Cognitect labs test runner]]
+
+    Add the following configuration to the ~aliases~ section of your ~$HOME/.clojure/deps.edn~ file
+
+#+BEGIN_SRC shell
+:cognitect-test-runner
+{:extra-paths ["test"]
+ :extra-deps
+  {com.cognitect/test-runner
+    {:git/url "https://github.com/cognitect-labs/test-runner.git"
+     :sha "209b64504cb3bd3b99ecfec7937b358a879f55c1"}}
+ :main-opts ["-m" "cognitect.test-runner"]}
+#+END_SRC
+
+    Run the tests with the following command from the root of a specific project
+
+#+BEGIN_SRC shell
+  clojure -A:cognitect-test-runner
+#+END_SRC
+
+*** [[https://github.com/weavejester/eftest][eftest]]
+
+    Add the following configuration to the ~aliases~ section of your ~$HOME/.clojure/deps.edn~ file
+
+#+BEGIN_SRC shell
+  :eftest
+  {:extra-paths ["test"]
+   :extra-deps  {eftest {:mvn/version "0.5.9"}}
+   :main-opts   ["-e"  "(require,'[eftest.runner,:refer,[find-tests,run-tests]]),(run-tests,(find-tests,\"test\"))"]}
+#+END_SRC
+
+    Run the tests with the following command from the root of a specific project
+
+#+BEGIN_SRC shell
+  clojure -A:eftest-runner
+#+END_SRC
+
+
+*** [[https://github.com/lambdaisland/kaocha][kaocha]]
+
+    Add the following configuration to the ~aliases~ section of your ~$HOME/.clojure/deps.edn~ file
+
+#+BEGIN_SRC shell
+:kaocha-test-runner
+{:extra-deps {lambdaisland/kaocha {:mvn/version "0.0-565"}}}
+#+END_SRC
+
+    Add a binstub called bin/kaocha
+
+#+BEGIN_SRC shell
+mkdir -p bin
+echo '#!/usr/bin/env bash' > bin/kaocha
+echo 'clojure -A:test -m kaocha.runner "$@"' >> bin/kaocha
+chmod +x bin/kaocha
+#+END_SRC
+
+    Run the tests with the following command from the root of a specific project
+
+#+BEGIN_SRC shell
+kaocha
+#+END_SRC
