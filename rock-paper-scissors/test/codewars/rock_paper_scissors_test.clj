@@ -1,5 +1,5 @@
 (ns codewars.rock-paper-scissors-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [are deftest testing]]
             [codewars.rock-paper-scissors :as SUT]))
 
 
@@ -10,32 +10,35 @@
 ;; that only vary by the data used
 ;; Example:
 
-(are [x y] (= x y)
-  2 (+ 1 1)
-  4 (* 2 2))
+#_(are [x y] (= x y)
+    2 (+ 1 1)
+    4 (* 2 2))
 
 ;; Expands to:
 
-(do (is (= 2 (+ 1 1)))
-    (is (= 4 (* 2 2))))
+#_(do (is (= 2 (+ 1 1)))
+      (is (= 4 (* 2 2))))
 
 
-(deftest rock-paper-scissors-tests
+(deftest rock-paper-scissors-test
 
   (testing "player 1 win"
-    (are [player1 player2] (= "Player 1 won!" (SUT/rock-paper-scissors-game player1 player2))
+    (are [player1 player2] (= "Player 1 won!"
+                              (SUT/rock-paper-scissors-game player1 player2))
       "rock"     "scissors"
       "scissors" "paper"
       "paper"    "rock"))
 
   (testing "player 2 win"
-    (are [player1 player2] (= "Player 2 won!" (SUT/rock-paper-scissors-game player1 player2))
+    (are [player1 player2] (= "Player 2 won!"
+                              (SUT/rock-paper-scissors-game player1 player2))
       "scissors" "rock"
       "paper"    "scissors"
       "rock"     "paper"))
 
   (testing "draw"
-    (are [player1 player2] (= "Draw!" (SUT/rock-paper-scissors-game player1 player2))
+    (are [player1 player2] (= "Draw!"
+                              (SUT/rock-paper-scissors-game player1 player2))
       "rock"     "rock"
       "scissors" "scissors"
       "paper"    "paper"))
@@ -43,23 +46,43 @@
 
 
 
-(deftest rock-paper-scissors-lizard-spock-tests
+(deftest rock-paper-scisors-lizard-spock-game-test
 
   (testing "player 1 win"
-    (are [player1 player2] (= "Player 1 won!" (SUT/rock-paper-scissors-game player1 player2))
+    (are [player1 player2] (= "Player 1 won!"
+                              (SUT/rock-paper-scisors-lizard-spock-game player1 player2))
       "rock"     "scissors"
+      "rock"     "lizard"
       "scissors" "paper"
-      "paper"    "rock"))
+      "scissors" "lizard"
+      "paper"    "rock"
+      "paper"    "spock"
+      "lizard"   "spock"
+      "lizard"   "paper"
+      "spock"    "scissors"
+      "spock"    "rock"))
+
 
   (testing "player 2 win"
-    (are [player1 player2] (= "Player 2 won!" (SUT/rock-paper-scissors-game player1 player2))
+    (are [player1 player2] (= "Player 2 won!"
+                              (SUT/rock-paper-scisors-lizard-spock-game player1 player2))
       "scissors" "rock"
+      "scissors" "spock"
       "paper"    "scissors"
-      "rock"     "paper"))
+      "paper"    "lizard"
+      "rock"     "spock"
+      "rock"     "paper"
+      "lizard"   "rock"
+      "lizard"   "scissors"
+      "spock"    "lizard"
+      "spock"    "paper"))
 
   (testing "draw"
-    (are [player1 player2] (= "Draw!" (SUT/rock-paper-scissors-game player1 player2))
+    (are [player1 player2] (= "Draw!"
+                              (SUT/rock-paper-scisors-lizard-spock-game player1 player2))
       "rock"     "rock"
       "scissors" "scissors"
-      "paper"    "paper"))
+      "paper"    "paper"
+      "lizard"   "lizard"
+      "spock"    "spock"))
   )

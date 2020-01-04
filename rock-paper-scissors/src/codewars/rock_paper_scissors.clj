@@ -48,6 +48,8 @@
 ;; in some language a hash-map is referred to as a dictionary.
 ;; E.g. The Clacks alphabet - a simple encoder / decoder
 
+(def alphabet
+  {"a" "10011001"})
 
 ;; We can use a hash-map to define the winning choices,
 ;; as we know if one player wins, the other looses.
@@ -127,7 +129,7 @@
 ;; The same function works from the previous game,
 ;; with just a sligt modification to check in the sequence
 
-(defn rock-paper-scisors-game-extended
+(defn rock-paper-scisors-lizard-spock-game
   "Find the winner of the rock paper scissors game.
   Arguments: player choices as strings
   Return: The result as a string"
@@ -138,6 +140,11 @@
     :else                                                  "Player 2 won!"))
 
 
+;; `contains?` when used with a vector looks to see if there is an index
+;; rather than looking for the value.
+#_(contains? [1 2 3 4] 4)
+;; => false
+
 ;; `some` is used to check the contents of the vector returned
 ;; from the winner states.
 ;; `some` must be a function, so we can wrap player2 string in a collection
@@ -145,9 +152,14 @@
 ;; A set works.  A vector tries to use the index, so does not work.
 
 (some #{"spock"} ["spock" "paper"])
+;; => "spock"
 
-(rock-paper-scisors-game-extended "rock" "lizard")
-(rock-paper-scisors-game-extended "rock" "spock")
+;; an inline function can also be used
+(some #(= "spock" %) ["spock" "paper"])
+;; => true
+
+(rock-paper-scisors-lizard-spock-game "rock" "lizard")
+(rock-paper-scisors-lizard-spock-game "rock" "spock")
 
 
 ;; Alternative solutions
