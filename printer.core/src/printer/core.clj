@@ -36,7 +36,7 @@
 ;; - return the result as a string
 
 ;; Input:
-;; - A string containing printer codes, represented by charaters in the string.
+;; - A string containing printer codes, represented by characters in the string.
 ;; - Only characters a to m are legal color codes for the printer
 ;; - Charactes n to z are error codes.
 
@@ -51,7 +51,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Example printer string of color codes
-#_(def u "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz")
+(def u "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz")
 
 
 ;; Create a set of all the legal color codes,
@@ -61,17 +61,19 @@
 
 ;; need to use characters when working with a string as a sequence,
 ;; as a string is a sequence of characters
-#_(def legal-color-chars #{\a \b \c \d \e \f \g \h \i \j \k \l \m})
+(def legal-color-chars
+  #{\a \b \c \d \e \f \g \h \i \j \k \l \m})
 
 
 ;; Using remove and the set of legal color codes to find any error codes remaining
 
-#_(defn printer-error [s]
-    (let [total  (count s)
-          errors (count (remove legal-color-chars (seq s)))]
-      (str errors "/" total)))
+(defn printer-error [s]
+  (let [total  (count s)
+        errors (count (remove legal-color-chars (seq s)))]
+    (str errors "/" total)))
 
-#_(printer-error u)
+(printer-error u)
+;; => "3/56"
 
 ;; Get total number of characters
 #_(count u)
@@ -98,20 +100,20 @@
 
 ;; create a new (lazy) sequence of the string
 ;; with only the characters n to z
-#_(re-seq #"[n-z]" u)
+(re-seq #"[n-z]" u)
 
 ;; then count the results
 
-#_(count
-    (re-seq #"[n-z]" u))
+(count
+  (re-seq #"[n-z]" u))
 
 
 ;; Put the regex statement back into our function definition.
 
-#_(defn printer-error [s]
-    (let [total  (count s)
-          errors (count (re-seq #"[n-z]" s))]
-      (str errors "/" total)))
+(defn printer-error [s]
+  (let [total  (count s)
+        errors (count (re-seq #"[n-z]" s))]
+    (str errors "/" total)))
 
 ;; improvements
 ;; - no external dictionary of characters required
@@ -120,12 +122,12 @@
 ;; We can do this without local name bindings,
 ;; making the code slightly more performant.
 
-#_(defn printer-error [s]
-    (str
-      (count (re-seq #"[n-z]" s))
-      "/"
-      (count s))
-    )
+(defn printer-error [s]
+  (str
+    (count (re-seq #"[n-z]" s))
+    "/"
+    (count s))
+  )
 
 
 ;; Solution
@@ -134,8 +136,8 @@
 
 
 (defn printer-error [s]
-  (str
-    (count (re-seq #"[n-z]" s))
-    "/"
-    (count s))
-  )
+(str
+  (count (re-seq #"[n-z]" s))
+  "/"
+  (count s))
+)
