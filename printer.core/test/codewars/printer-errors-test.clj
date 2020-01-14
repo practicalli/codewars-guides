@@ -1,6 +1,6 @@
-(ns printer.core-test
+(ns codewars.printer-errors-test
   (:require [clojure.test :refer :all]
-            [printer.core :refer :all]))
+            [codewars.printer-errors :refer :all]))
 
 (defn test-assert [act exp]
   (is (= act exp)))

@@ -1,4 +1,4 @@
-(ns printer.core)
+(ns codewars.printer-errors)
 
 ;; Kata: Printer Errors
 ;; Level: 7kyu
