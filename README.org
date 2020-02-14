@@ -9,8 +9,7 @@ Codewars  is an online gamified website where you can compare your solutions wit
 
 I suggest you create an account on CodeWars, although I will cover this in the broadcast.  You can also just use the code repository of solutions, at it will contain the sample tests that Codwars provides with each challenge.
 
-All code can be found at
-https://github.com/practicalli/codewars-guides
+All code can be found at [[https://github.com/practicalli/codewars-guides][practicalli/codewars-guides]]
 
 ** Using this repository
 
