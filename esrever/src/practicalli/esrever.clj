@@ -7,7 +7,6 @@
 ;; Write a function reverse which reverses a list
 ;; or in clojure's case, any list-like data structure
 
-
 (ns practicalli.esrever
   (:refer-clojure :exclude [reverse]))
 
@@ -20,9 +19,9 @@
 ;; you can use the reverse function.
 
 (defn reverse
-  "Reverse a list"
-  [xs]
-  (clojure.core/reverse xs))
+"Reverse a list"
+[xs]
+(clojure.core/reverse xs))
 
 
 ;; This does not adhere to the spirit of the challenge though.
@@ -132,3 +131,26 @@
 
 
 ;; We have a working solution that is nice and clean.
+
+
+;; Using a def rather than defn
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Assuming the function only takes one argument
+;; then we can use a def expression rather than a defn
+
+;; using partial delays the evaluation of the `into ()` evaluation
+;; until an argument is given.
+
+(def reverse (partial into ()))
+
+;; When we evaluate `reverse` with a value,
+;; it is replaced by the `partial` expression.
+
+(reverse [1 2 3])
+
+((partial into ()) [1 2 3])
+
+;; `partial` passes the argument to `into`
+;; and gives the final expression that generates the result
+
+(into () [1 2 3])
